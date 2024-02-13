@@ -7,7 +7,7 @@ addpath('C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Input',...
     'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Funzioni',...
     'Output'); % Cartelle contenenti dati meteorologici, sugli inquinanti, stazioni, mappa e funzioni
 
-outFOLD = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20230613_Australia_CNN_IY_3In_10Out_20N_20Conv_Georef_v\';
+outFOLD = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20231113_Poland_CNN\';
 path = strcat(outFOLD, 'net_opt.mat');
 load(path);
 
@@ -15,7 +15,7 @@ net_type = 1;    % 0 = LSTM Network 1 = Convolutional Neural Network 2 = ConvLST
 
 ValSelection = 1;
 
-domain = 1; % 0 = Lombardia; 1 = Australia 2 = Poland
+domain = 2; % 0 = Lombardia; 1 = Australia 2 = Poland
 Nstaz_val = 0;
 
 Tval = 365;
@@ -151,6 +151,8 @@ for i = 1:length(target{1,1})
 end
 
 %% Test network
+net_opt = best_net_opt;
+
 if net_type == 3
     output_id = sim(net_opt,input_id);
 else

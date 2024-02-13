@@ -7,7 +7,7 @@ addpath('C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Input',...
     'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Funzioni',...
     'Output'); % Cartelle contenenti dati meteorologici, sugli inquinanti, stazioni, mappa e funzioni
 
-outFOLD_network = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20230613_Australia_CNN_IY_3In_10Out_20N_20Conv_Georef_v\';
+outFOLD_network = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20231219_Lombardia_CNN\';
 
 net_type = 1;    % 0 = LSTM Network 1 = Convolutional Neural Network 2 = ConvLSTM 3 = Feed Forward
 
@@ -25,7 +25,7 @@ net_type = 1;    % 0 = LSTM Network 1 = Convolutional Neural Network 2 = ConvLST
 NumInputs = 3;
 NumOutputs = 10; 
 
-domain = 0; % 0 = Lombardia; 1 = Australia 2 = Poland
+domain = 1; % 0 = Lombardia; 1 = Australia 2 = Poland
 domain2 = 2;
 
 switch domain
@@ -130,11 +130,12 @@ path = strcat(outFOLD_network, 'net_opt.mat');
 load(path);
 
 %% Test net
+net_opt = best_net_opt;
 
 if net_type == 3
-    output_test = sim(net_opt,input_test);
+    output_test = sim(best_net_opt,input_test);
 else
-    output_test = predict(net_opt,input_test);
+    output_test = predict(best_net_opt,input_test);
 end
 
 output_test = std_test.*output_test +mean_test ;
@@ -227,11 +228,12 @@ for i = 1:length(target{1,1})
 end
 
 %% Test second net
+net_opt = best_net_opt;
 
 if net_type == 3
-    output_test = sim(net_opt,input_test);
+    output_test = sim(best_net_opt,input_test);
 else
-    output_test = predict(net_opt,input_test);
+    output_test = predict(best_net_opt,input_test);
 end
 
 output_test = std_test.*output_test +mean_test ;

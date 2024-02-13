@@ -7,9 +7,9 @@ addpath('C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Input',...
     'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Funzioni',...
     'Output'); % Cartelle contenenti dati meteorologici, sugli inquinanti, stazioni, mappa e funzioni
 
-outFOLD_network = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20230613_Lombardia_CNN_IY_3In_10Out_20N_20Conv_Georef_v\';
-outFOLD_network2 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20230613_Lombardia_FF_IY_3In_10Out_64N_20Conv_Georef_v\';
-outFOLD_network3 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20230614_Lombardia_LSTM_IY_3In_10Out_20N_20Conv_Georef_v\';
+outFOLD_network = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20231212_Lombardia_CNN\';
+outFOLD_network2 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20231123_Lombardia_FF\';
+outFOLD_network3 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20231118_Lombardia_LSTM\';
 
 net_type = 1;    % 0 = LSTM Network 1 = Convolutional Neural Network 2 = ConvLSTM 3 = Feed Forward
 net_type2 = 3;
@@ -182,6 +182,8 @@ path = strcat(outFOLD_network, 'Data.mat');
 load(path);
 
 %% Evaluate model adjusted
+net_opt = best_net_opt;
+
 if net_type == 3
     output_val = sim(net_opt, input_val);
 else
@@ -375,20 +377,24 @@ err_medio_abs_norm_pers2 = 1/width(output_pers)*(sum(abs(PM10_target_pers_val-ou
 %% Evaluate model adjusted
 
 clear output_val
+net_opt = best_net_opt;
 
-if net_type2 == 3
-    output_val = sim(net_opt,input_val);
-else
-    output_val = predict(net_opt,input_val);
-end
+% if net_type2 == 3
+%     output_val = sim(net_opt,input_val);
+% else
+%     output_val = predict(net_opt,input_val);
+% end
+output_val = predict(net_opt,input_val);
 
 output_val = std_val.*output_val +mean_val ;
 
-if net_type2 == 3
-    output_test = sim(net_opt,input_test);
-else
-    output_test = predict(net_opt,input_test);
-end
+% if net_type2 == 3
+%     output_test = sim(net_opt,input_test);
+% else
+%     output_test = predict(net_opt,input_test);
+% end
+
+output_test = predict(net_opt,input_test);
 
 output_test = std_test.*output_test +mean_test ;
 
@@ -556,6 +562,7 @@ err_medio_abs_norm_pers3 = 1/width(output_pers)*(sum(abs(PM10_target_pers_val-ou
 
 
 %% Evaluate model adjusted
+net_opt = best_net_opt;
 
 if net_type3 == 3
     output_val = sim(net_opt,input_val);

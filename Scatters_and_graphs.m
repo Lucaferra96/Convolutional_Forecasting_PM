@@ -7,9 +7,9 @@ addpath('C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Input',...
     'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Funzioni',...
     'Output'); 
 
-outFOLD_network1 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20230613_Lombardia_CNN_IY_3In_10Out_20N_20Conv_Georef_v\';
-outFOLD_network2 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20230613_Australia_CNN_IY_3In_10Out_20N_20Conv_Georef_v\';
-outFOLD_network3 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20230613_Poland_CNN_IY_3In_10Out_20N_20Conv_Georef_v\';
+outFOLD_network1 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20231212_Lombardia_CNN\';
+outFOLD_network2 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20231113_Australia_CNN\';
+outFOLD_network3 = 'C:\Users\ferrarilu\OneDrive - ETH Zurich\Tesi_Olgiati\Output\20231113_Poland_CNN\';
 
 net_type1 = 1;    % 0 = LSTM Network 1 = Convolutional Neural Network 2 = ConvLSTM 3 = Feed Forward
 net_type2 = 1;
@@ -57,6 +57,8 @@ path = strcat(outFOLD_network1, 'Data.mat');
 load(path);
 
 %% Evaluate model adjusted
+net_opt = best_net_opt;
+
 if net_type == 3
     output_test = sim(net_opt,input_test);
 else
@@ -85,6 +87,8 @@ path = strcat(outFOLD_network2, 'Data.mat');
 load(path);
 
 %% Evaluate model adjusted
+net_opt = best_net_opt;
+
 if net_type == 3
     output_test = sim(net_opt,input_test);
 else
@@ -113,6 +117,8 @@ path = strcat(outFOLD_network3, 'Data.mat');
 load(path);
 
 %% Evaluate model adjusted
+net_opt = best_net_opt;
+
 if net_type == 3
     output_test = sim(net_opt,input_test);
 else
